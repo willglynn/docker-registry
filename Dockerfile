@@ -30,6 +30,9 @@ RUN pip install /docker-registry/depends/docker-registry-core
 # Install registry
 RUN pip install file:///docker-registry#egg=docker-registry[bugsnag,newrelic,cors]
 
+# Add rsa dependency for CloudFront URL signing
+RUN pip install rsa
+
 RUN patch \
  $(python -c 'import boto; import os; print os.path.dirname(boto.__file__)')/connection.py \
  < /docker-registry/contrib/boto_header_patch.diff
